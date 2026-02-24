@@ -1,15 +1,15 @@
-# 🏨 Plateforme de Réservation d'Hébergements Touristiques
+#  Plateforme de Réservation d'Hébergements Touristiques
 
 Application web de réservation d'hébergements touristiques en Côte d'Ivoire.
 
-## 📋 Description
+##  Description
 
 Plateforme complète permettant :
-- 🔍 **Aux voyageurs** : Rechercher, comparer et réserver des hébergements
-- 🏨 **Aux hôtes** : Gérer leurs établissements et réservations
-- 👨‍💼 **Aux admins** : Superviser et valider les établissements
+-  **Aux voyageurs** : Rechercher, comparer et réserver des hébergements
+-  **Aux hôtes** : Gérer leurs établissements et réservations
+-  **Aux admins** : Superviser et valider les établissements
 
-## 🛠️ Technologies Utilisées
+##  Technologies Utilisées
 
 ### Backend
 -  **Java 17**
