@@ -52,17 +52,6 @@ Application : http://localhost:3000
 ```sql
 CREATE DATABASE reservation_touristique;
 ```
-
-##  Équipe de Développement
-
-| Rôle | Nom |
-|------|-----|
-  **Chef de Projet** | Sintia Colette KOFFI AMENAN |
-  **Développeur Backend** | Anne Marie BOGA |
-  **Développeur Frontend** | Harold AKA KOFFI |
-  **Designer UX/UI & QA** | Yassoungo DIARRASSOUBA |
-| 
-
 ##  Planning du Projet
 
 - **Phase 1** : Analyse & Conception (3 semaines) - 01/03 au 21/03
