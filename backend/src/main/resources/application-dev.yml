@@ -1,0 +1,37 @@
+# Profil dev : SQL détaillé en console (data.sql est chargé depuis application.yml)
+spring:
+  jpa:
+    show-sql: true
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DATABASE:quicklodge_db}?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+
+logging:
+  level:
+    com.quicklodge: DEBUG
+    org.hibernate.SQL: DEBUG
+
+# Dev: afficher aussi les établissements non validés admin dans la recherche publique.
+app:
+  public:
+    include-unvalidated: true
+  schema:
+    patch:
+      enabled: true
+  data:
+    cleanup:
+      # Mettre à true pour supprimer les services admin non liés (doublons) au démarrage (DEV uniquement).
+      enabled: true
+      dedupe-services:
+        # Supprime les doublons de services (même établissement + catégorie + libellé), garde 1 seule entrée.
+        enabled: true
+      keep-only-two-per-category:
+        # EXCEPTIONNEL: pour chaque catégorie, garder 2 services (liés à des établissements) et supprimer le reste.
+        # Recommandation: remettre à false après le nettoyage.
+        enabled: false
+      delete-reservations:
+        # EXCEPTIONNEL: supprimer toutes les réservations passées et en cours au démarrage (DEV uniquement).
+        # Recommandation: remettre à false après le nettoyage.
+        enabled: true
+  seed:
+    ensure-two-services-per-category:
+      enabled: true
