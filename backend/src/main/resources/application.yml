@@ -1,6 +1,7 @@
 # ——— Serveur ———
 server:
-  port: 8080
+  # Render / PaaS : la plateforme impose le port via la variable PORT.
+  port: ${PORT:8080}
   servlet:
     context-path: /api
   tomcat:
