@@ -1,0 +1,17 @@
+# Maven / Java compiled files
+backend/target/
+backend/uploads/
+*.class
+
+# Environment
+.env
+*.env
+
+# Frontend build
+frontend/dist/
+frontend/node_modules/
+
+# IDE
+.idea/
+.vscode/
+*.iml

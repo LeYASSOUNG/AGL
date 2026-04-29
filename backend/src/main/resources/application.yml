@@ -1,0 +1,86 @@
+# ——— Serveur ———
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+  tomcat:
+    # Corps JSON (photos en base64) : limite supérieure à la valeur par défaut (~2 Mo)
+    max-http-form-post-size: 32MB
+
+# Fichiers uploadés (photos d'établissements), servis sous /api/files/**
+app:
+  upload:
+    dir: uploads
+  cors:
+    # Comma-separated. Examples:
+    # - http://localhost:3000
+    # - https://quicklodge.com
+    # - https://*.quicklodge.com
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:3000}
+  # Annulation / modification client : dernier jour inclus = arrivée moins N jours (N=1 → veille de l'arrivée)
+  reservation:
+    client-cancel-min-days-before-start: 1
+    client-cancel-motif-min-length: 10
+
+# ——— Application ———
+spring:
+  application:
+    name: quicklodge-platform
+
+  # Base de données MySQL
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DATABASE:quicklodge_db}?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: ${MYSQL_USER:root}
+    password: ${MYSQL_PASSWORD:Azerty12@@}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      connection-timeout: 30000
+
+  # JPA / Hibernate (entités com.quicklodge.entity)
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    # Exécute data.sql après la création/mise à jour des tables (compte admin, rôles, référentiels).
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+        default_schema: null
+        jdbc:
+          batch_size: 25
+        order_inserts: true
+        order_updates: true
+    mapping-resources: []
+  sql:
+    init:
+      mode: always
+      data-locations: classpath:db/migration/data.sql
+  # Migrations Flyway (optionnel, décommenter si utilisé)
+  # flyway:
+  #   enabled: true
+  #   locations: classpath:db/migration
+
+# ——— JWT (Access + Refresh) ———
+jwt:
+  secret: ${JWT_SECRET:your-256-bit-secret-key-min-32-chars-for-hs256}
+  access-token:
+    expiration-ms: ${JWT_ACCESS_EXPIRATION_MS:900000}
+  refresh-token:
+    expiration-ms: ${JWT_REFRESH_EXPIRATION_MS:604800000}
+  issuer: ${JWT_ISSUER:quicklodge-platform}
+
+# ——— CORS (frontend React sur port 3000) ———
+# Géré en code dans com.quicklodge.config.WebMvcConfig ou SecurityConfig
+
+# ——— Logging ———
+logging:
+  level:
+    root: INFO
+    com.quicklodge: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.springframework.security: DEBUG
