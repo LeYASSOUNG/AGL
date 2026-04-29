@@ -1,5 +1,5 @@
-# Build + run Spring Boot sur Render (pas de runtime "Java" natif sur Render).
-# Sur Render : Web Service → Environment "Docker", Root Directory = backend.
+# Build + run Spring Boot (Render, Railway, etc.).
+# Railway : ajouter MySQL dans le projet, puis référencer les variables MYSQL* sur ce service.
 
 FROM maven:3.9.9-eclipse-temurin-17-alpine AS build
 WORKDIR /app

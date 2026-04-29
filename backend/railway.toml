@@ -1,0 +1,5 @@
+# Railway : service Web avec ce dossier comme racine du repo (Root Directory = backend).
+# https://docs.railway.com/deploy/dockerfiles
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "Dockerfile"

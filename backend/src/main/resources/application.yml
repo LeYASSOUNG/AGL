@@ -29,10 +29,12 @@ spring:
     name: quicklodge-platform
 
   # Base de données MySQL
+  # Railway expose MYSQLHOST, MYSQLPORT, MYSQLUSER, MYSQLPASSWORD, MYSQLDATABASE (sans underscore).
+  # En local / Render on peut encore utiliser MYSQL_HOST, MYSQL_PORT, etc.
   datasource:
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DATABASE:quicklodge_db}?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
-    username: ${MYSQL_USER:root}
-    password: ${MYSQL_PASSWORD:Azerty12@@}
+    url: jdbc:mysql://${MYSQLHOST:${MYSQL_HOST:localhost}}:${MYSQLPORT:${MYSQL_PORT:3306}}/${MYSQLDATABASE:${MYSQL_DATABASE:quicklodge_db}}?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: ${MYSQLUSER:${MYSQL_USER:root}}
+    password: ${MYSQLPASSWORD:${MYSQL_PASSWORD:Azerty12@@}}
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       maximum-pool-size: 10
