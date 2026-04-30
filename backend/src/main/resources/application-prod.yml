@@ -1,0 +1,12 @@
+# Profil production (Railway, etc.) : pas de bruit SQL, pas de profil dev destructeur.
+spring:
+  jpa:
+    show-sql: false
+
+logging:
+  level:
+    root: INFO
+    com.quicklodge: INFO
+    org.hibernate.SQL: WARN
+    org.hibernate.orm.jdbc.bind: WARN
+    org.springframework.security: INFO

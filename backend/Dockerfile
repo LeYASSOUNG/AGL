@@ -1,10 +1,12 @@
 # Build + run Spring Boot (Render, Railway, etc.).
-# Railway : ajouter MySQL dans le projet, puis référencer les variables MYSQL* sur ce service.
+# Contexte Docker : racine du dépôt (monorepo). Build local :
+#   docker build -f backend/Dockerfile .
+# Railway : railway.json pointe vers ce fichier ; lier MySQL et définir JWT_SECRET, CORS_ALLOWED_ORIGINS.
 
 FROM maven:3.9.9-eclipse-temurin-17-alpine AS build
 WORKDIR /app
-COPY pom.xml .
-COPY src ./src
+COPY backend/pom.xml .
+COPY backend/src ./src
 RUN mvn -q -DskipTests package
 
 FROM eclipse-temurin:17-jre-alpine
@@ -14,4 +16,5 @@ COPY --from=build /app/target/*.jar /app/app.jar
 USER spring:spring
 EXPOSE 8080
 ENV JAVA_OPTS=""
+ENV SPRING_PROFILES_ACTIVE=prod
 ENTRYPOINT ["sh", "-c", "exec java $JAVA_OPTS -jar /app/app.jar"]
