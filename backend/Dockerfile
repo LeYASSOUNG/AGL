@@ -1,12 +1,13 @@
 # Build + run Spring Boot (Render, Railway, etc.).
-# Contexte Docker : racine du dépôt (monorepo). Build local :
-#   docker build -f backend/Dockerfile .
-# Railway : railway.json pointe vers ce fichier ; lier MySQL et définir JWT_SECRET, CORS_ALLOWED_ORIGINS.
+# Contexte Docker attendu : dossier backend/ (Root Directory = backend sur Railway).
+# Build local depuis backend/ :
+#   docker build -f Dockerfile .
+# Railway : lier MySQL et définir JWT_SECRET, CORS_ALLOWED_ORIGINS.
 
 FROM maven:3.9.9-eclipse-temurin-17-alpine AS build
 WORKDIR /app
-COPY backend/pom.xml .
-COPY backend/src ./src
+COPY pom.xml .
+COPY src ./src
 RUN mvn -q -DskipTests package
 
 FROM eclipse-temurin:17-jre-alpine
